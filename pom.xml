@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.testcontainers</groupId>
         <artifactId>testcontainers-parent</artifactId>
-        <version>1.4.0</version><!-- TESTCONTAINERS RELEASE VERSION -->
+        <version>1.4.3</version><!-- TESTCONTAINERS RELEASE VERSION -->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
