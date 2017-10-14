@@ -21,6 +21,24 @@ public class SomeTest {
         ... create a connection and run test as normal
 ```
 
+## Dependency information
+
+### Maven
+
+```
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>mssqlserver</artifactId>
+    <version>1.4.3</version>
+</dependency>
+```
+
+### Gradle
+
+```
+compile group: 'org.testcontainers', name: 'mssqlserver', version: '1.4.3'
+```
+
 ## License
 
 See [LICENSE](LICENSE).
