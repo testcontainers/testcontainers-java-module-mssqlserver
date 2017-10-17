@@ -49,7 +49,11 @@ public class CustomDbMSSQLServerTest {
             preparedStatement.setString(1, DATABASE_NAME);
             rs = preparedStatement.executeQuery();
             rs.next();
-            assertEquals("", COLLATION, rs.getString(1));
+            assertEquals(
+                    "Current collation SELECT query succeeds",
+                    COLLATION,
+                    rs.getString(1)
+            );
         }
     }
 }
