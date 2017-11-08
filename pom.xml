@@ -11,7 +11,11 @@
     <artifactId>mssqlserver</artifactId>
     <version>0-SNAPSHOT</version>
 
-    <name>TestContainers :: JDBC :: MS SQL Server</name>
+    <name>TestContainers :: MS SQL Server</name>
+    <description>
+        MS SQL Server container for dockerized database testing under Testcontainers.
+    </description>
+    <url>https://github.com/testcontainers/testcontainers-java-module-mssqlserver</url>
     <licenses>
         <license>
             <name>MIT</name>
@@ -27,11 +31,6 @@
     </developers>
 
     <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>testcontainers</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jdbc</artifactId>
@@ -85,6 +84,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <scm>
+        <connection>scm:git:https://github.com/testcontainers/testcontainers-java-module-mssqlserver.git</connection>
+        <developerConnection>scm:git:git@github.com:testcontainers/testcontainers-java-module-mssqlserver.git
+        </developerConnection>
+        <url>https://github.com/testcontainers/testcontainers-java-module-mssqlserver</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <profiles>
         <profile>
