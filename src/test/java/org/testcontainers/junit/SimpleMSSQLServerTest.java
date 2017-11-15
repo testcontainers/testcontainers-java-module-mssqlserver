@@ -2,10 +2,10 @@ package org.testcontainers.junit;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.junit.Rule;
 import org.junit.Test;
 import org.testcontainers.containers.MSSQLServerContainer;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,20 +17,18 @@ import static org.rnorth.visibleassertions.VisibleAssertions.assertEquals;
  */
 public class SimpleMSSQLServerTest {
 
-    @Rule
-    public MSSQLServerContainer mssqlServer = new MSSQLServerContainer();
-
     @Test
     public void testSimple() throws SQLException {
+        MSSQLServerContainer mssqlServer = new MSSQLServerContainer();
+        mssqlServer.start();
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(mssqlServer.getJdbcUrl());
         hikariConfig.setUsername(mssqlServer.getUsername());
         hikariConfig.setPassword(mssqlServer.getPassword());
 
         HikariDataSource ds = new HikariDataSource(hikariConfig);
-        Statement statement = ds.getConnection().createStatement();
-        statement.execute("SELECT 1");
-        ResultSet resultSet = statement.getResultSet();
+        PreparedStatement statement = ds.getConnection().prepareStatement("SELECT 1");
+        ResultSet resultSet = statement.executeQuery();
 
         resultSet.next();
         int resultSetInt = resultSet.getInt(1);
@@ -39,6 +37,8 @@ public class SimpleMSSQLServerTest {
 
     @Test
     public void testSetupDatabase() throws SQLException {
+        MSSQLServerContainer mssqlServer = new MSSQLServerContainer();
+        mssqlServer.start();
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(mssqlServer.getJdbcUrl());
         hikariConfig.setUsername(mssqlServer.getUsername());
