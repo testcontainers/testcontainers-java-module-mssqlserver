@@ -1,5 +1,7 @@
 package org.testcontainers.containers;
 
+import org.testcontainers.containers.wait.HostPortWaitStrategy;
+
 /**
  * @author Stefan Hufschmidt
  */
@@ -12,10 +14,12 @@ public class MSSQLServerContainer<SELF extends MSSQLServerContainer<SELF>> exten
 
     public MSSQLServerContainer() {
         this(IMAGE + ":latest");
+        this.waitStrategy = new HostPortWaitStrategy();
     }
 
     public MSSQLServerContainer(final String dockerImageName) {
         super(dockerImageName);
+        this.waitStrategy = new HostPortWaitStrategy();
     }
 
     @Override
