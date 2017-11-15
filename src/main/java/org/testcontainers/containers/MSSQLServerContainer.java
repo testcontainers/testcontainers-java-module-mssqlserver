@@ -1,5 +1,6 @@
 package org.testcontainers.containers;
 
+import org.testcontainers.containers.wait.HostPortWaitStrategy;
 import java.io.IOException;
 
 /**
@@ -16,10 +17,12 @@ public class MSSQLServerContainer<SELF extends MSSQLServerContainer<SELF>> exten
 
     public MSSQLServerContainer() {
         this(IMAGE + ":latest");
+        this.waitStrategy = new HostPortWaitStrategy();
     }
 
     public MSSQLServerContainer(final String dockerImageName) {
         super(dockerImageName);
+        this.waitStrategy = new HostPortWaitStrategy();
     }
 
     @Override
