@@ -1,5 +1,13 @@
 package org.testcontainers.containers;
 
+import org.rnorth.ducttape.unreliables.Unreliables;
+
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.SQLException;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Stefan Hufschmidt
  */
@@ -54,5 +62,22 @@ public class MSSQLServerContainer<SELF extends MSSQLServerContainer<SELF>> exten
     @Override
     public String getTestQueryString() {
         return "SELECT 1";
+    }
+
+    // TODO: Replace with permanent solution to https://github.com/testcontainers/testcontainers-java/issues/568
+    @Override
+    public Connection createConnection(String queryString) throws SQLException {
+        final Properties info = new Properties();
+        info.put("user", this.getUsername());
+        info.put("password", this.getPassword());
+        final String url = this.getJdbcUrl() + queryString;
+
+        final Driver jdbcDriverInstance = getJdbcDriverInstance();
+
+        try {
+            return Unreliables.retryUntilSuccess(120, TimeUnit.SECONDS, () -> jdbcDriverInstance.connect(url, info));
+        } catch (Exception e) {
+            throw new SQLException("Could not create new connection", e);
+        }
     }
 }
